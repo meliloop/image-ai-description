@@ -62,5 +62,4 @@ def analyze_image():
 
     return jsonify(result)
 
-if __name__ == '__main__':
-    app.run(debug=False)
+app = app
