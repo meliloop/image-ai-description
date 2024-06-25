@@ -18,7 +18,13 @@ def get_image_data(image_url):
         return {"error": "Could not download the image"}
 
     try:
-        prompt = f"Caption: Provide a caption for the following image.\nTags: Provide relevant tags for the image.\nDescription: Provide a detailed description of the image.\nImage URL: {image_url}\n"
+        prompt = (
+            f"Caption: Provide a caption for the following image.\n"
+            f"Tags: Provide relevant tags for the image.\n"
+            f"Description: Provide a detailed description of the image.\n"
+            f"Alt Text: Provide alternative text for accessibility for the image.\n"
+            f"Image URL: {image_url}\n"
+        )
 
         response = client.chat.completions.create(
           model=model,
@@ -33,11 +39,13 @@ def get_image_data(image_url):
         caption = output.split("Caption: ")[1].split("\n")[0]
         tags = output.split("Tags: ")[1].split("\n")[0].split(", ")
         description = output.split("Description: ")[1].split("\n")[0]
+        alt_text = output.split("Alt Text: ")[1].split("\n")[0]
 
         result = {
             "caption": caption,
             "tags": tags,
-            "description": description
+            "description": description,
+            "alt_text": alt_text
         }
     except Exception as e:
         result = {"error": str(e)}
