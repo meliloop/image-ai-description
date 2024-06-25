@@ -36,7 +36,7 @@ def get_image_data(image_url):
             max_tokens=300
         )
 
-        output = response.choices[0].message["content"].strip()
+        output = response.choices[0].message.content.strip()
 
         caption = re.search(r'Caption: (.+)', output).group(1)
         tags = re.search(r'Tags: (.+)', output).group(1).split(", ")
