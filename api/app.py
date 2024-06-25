@@ -3,6 +3,7 @@ import requests
 from openai import OpenAI
 import os
 import hashlib
+import re
 
 app = Flask(__name__)
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
@@ -27,19 +28,20 @@ def get_image_data(image_url):
         )
 
         response = client.chat.completions.create(
-          model=model,
-          messages=[
-              {"role": "system", "content": "You are an assistant that describes images."},
-              {"role": "user", "content": prompt}
-          ],
-          max_tokens=100
+            model=model,
+            messages=[
+                {"role": "system", "content": "You are an assistant that describes images."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=300
         )
 
-        output = response.choices[0].message.content.strip()
-        caption = output.split("Caption: ")[1].split("\n")[0]
-        tags = output.split("Tags: ")[1].split("\n")[0].split(", ")
-        description = output.split("Description: ")[1].split("\n")[0]
-        alt_text = output.split("Alt Text: ")[1].split("\n")[0]
+        output = response.choices[0].message["content"].strip()
+
+        caption = re.search(r'Caption: (.+)', output).group(1)
+        tags = re.search(r'Tags: (.+)', output).group(1).split(", ")
+        description = re.search(r'Description: (.+)', output).group(1)
+        alt_text = re.search(r'Alt Text: (.+)', output).group(1)
 
         result = {
             "caption": caption,
