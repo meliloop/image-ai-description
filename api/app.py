@@ -23,7 +23,7 @@ def get_image_data(image_url):
             f"Caption: Provide a caption for the image.\n"
             f"Tags: Provide relevant tags for the image.\n"
             f"Description: Provide a detailed description of the image.\n"
-            f"Alt Text: Provide alternative text for accessibility for the image.\n"
+            #f"Alt Text: Provide alternative text for accessibility for the image.\n"
             f"Ff you are not able to interpret this images just fill the fields with \"blank\"\n"
         )
         
@@ -52,13 +52,13 @@ def get_image_data(image_url):
         output = response.choices[0].message.content.strip()
 
         caption = re.search(r'Caption: (.+)', output).group(1)
-        tags = re.search(r'Tags: (.+)', output).group(1).split(", ")
+        #tags = re.search(r'Tags: (.+)', output).group(1).split(", ")
         description = re.search(r'Description: (.+)', output).group(1)
         alt_text = re.search(r'Alt Text: (.+)', output).group(1)
 
         result = {
             "caption": caption,
-            "tags": tags,
+            #"tags": tags,
             "description": description,
             "alt_text": alt_text
         }
