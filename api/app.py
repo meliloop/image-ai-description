@@ -21,9 +21,9 @@ def get_image_data(image_url):
         prompt = (
             f"You are an expert SEO analyst, we need to generate metadata for this image, following google's criteria for best performance please generate:\n"
             f"Caption: Provide a caption for the image.\n"
-            f"Tags: Provide relevant tags for the image.\n"
+            #f"Tags: Provide relevant tags for the image.\n"
             f"Description: Provide a detailed description of the image.\n"
-            #f"Alt Text: Provide alternative text for accessibility for the image.\n"
+            f"Alt Text: Provide alternative text for accessibility for the image.\n"
             f"Ff you are not able to interpret this images just fill the fields with \"blank\"\n"
         )
         
@@ -50,12 +50,11 @@ def get_image_data(image_url):
         )
 
         output = response.choices[0].message.content.strip()
-
-        caption = re.search(r'Caption: (.+)', output).group(1)
-        #tags = re.search(r'Tags: (.+)', output).group(1).split(", ")
-        description = re.search(r'Description: (.+)', output).group(1)
-        alt_text = re.search(r'Alt Text: (.+)', output).group(1)
-
+        caption = re.search(r'Caption: (.+)', output).group(1) if re.search(r'Caption: (.+)', output) else ''
+        #tags = re.search(r'Tags: (.+)', output).group(1).split(", ") if re.search(r'Tags: (.+)', output) else ''
+        description = re.search(r'Description: (.+)', output).group(1) if re.search(r'Description: (.+)', output) else ''
+        alt_text = re.search(r'Alt Text: (.+)', output).group(1) if re.search(r'Alt Text: (.+)', output) else ''
+            
         result = {
             "caption": caption,
             #"tags": tags,
