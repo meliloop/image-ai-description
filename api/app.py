@@ -57,10 +57,10 @@ def get_image_data(image_url):
         alt_text = re.search(r'Alt Text: (.+)', output).group(1)
 
         result = {
-            "caption": output,
-            "tags": 'test',
-            "description": output,
-            "alt_text": output
+            "caption": caption,
+            "tags": tags,
+            "description": description,
+            "alt_text": alt_text
         }
     except Exception as e:
         result = {"error": str(e)}
