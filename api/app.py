@@ -47,7 +47,7 @@ def get_image_data(image_url):
                     ],
                 }
             ],
-            max_tokens=300,
+            max_tokens=600,
         )
 
         output = response.choices[0].message.content.strip()
