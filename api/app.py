@@ -25,7 +25,7 @@ def get_image_data(image_url):
             #f"Tags: Provide relevant tags for the image.\n"
             f"Description: Provide a detailed description of the image.\n"
             f"Alt Text: Provide alternative text for accessibility for the image.\n"
-            f"Ff you are not able to interpret this images just fill the fields with \"blank\"\n"
+            f"If you are not able to interpret this images just fill the fields with \"blank\"\n"
         )
         
         response = client.chat.completions.create(
